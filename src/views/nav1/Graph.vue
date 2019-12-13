@@ -1,5 +1,5 @@
 <template>
-	<section class="mainbox">
+	<section class="graphbox">
 		<div class="data_section">
 			<header class="section_title">数据统计</header>
 			<el-row :gutter="20" style="margin-bottom: 10px;">
