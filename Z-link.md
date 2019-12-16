@@ -34,6 +34,7 @@ https://element.eleme.cn/#/zh-CN
 https://didi.github.io/cube-ui/#/zh-CN
 https://ant.design/index-cn
 http://ustbhuangyi.github.io/better-scroll/doc/api.html#refresh
+https://www.oschina.net/p/vue-image-scroll
 http://adminlte.la998.com/
 https://swagger.io/
 http://layer.layui.com/
