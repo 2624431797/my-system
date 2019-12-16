@@ -7,7 +7,7 @@ export default {
         {
             name : "地理信息",
             path : "/map",
-            component : () => import("@/views/nav4/Map")
+            component : () => import("@/views/nav4/Map.vue")
         }
     ]
 }

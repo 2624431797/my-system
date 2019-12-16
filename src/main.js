@@ -17,9 +17,10 @@ import "./styles/main.scss"
 import VueParticles from 'vue-particles'  
 Vue.use(VueParticles)  
 
-//import './assets/theme/theme-green/index.css'
-//import NProgress from 'nprogress'
-//import 'nprogress/nprogress.css'
+//DataV
+import dataV from '@jiaminghi/data-view'
+Vue.use(dataV)
+
 import 'font-awesome/css/font-awesome.min.css'
 
 import Mock from './mock'

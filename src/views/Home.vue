@@ -139,7 +139,7 @@
 	}
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 	@import '~scss_vars';
 	.container {
 		position: absolute;
@@ -168,7 +168,6 @@
 				}
 			}
 			.logo {
-				//width:230px;
 				height:60px;
 				font-size: 22px;
 				padding-left:20px;
@@ -201,19 +200,32 @@
 		}
 		.main {
 			display: flex;
-			// background: #324057;
 			position: absolute;
 			top: 60px;
 			bottom: 0px;
 			overflow: hidden;
 			aside {
-				flex:0 0 230px;
-				width: 230px;
-				// position: absolute;
-				// top: 0px;
-				// bottom: 0px;
+				flex:0 0 200px!important;
+				width: 200px;
 				.el-menu{
 					height: 100%;
+					color: #fff;
+					background-color: #545c64;
+					.el-menu-item{
+						color: #fff;
+					}
+					.el-menu-item:hover{
+						background-color: rgb(41, 45, 48);
+					}
+					.is-active{
+						color: #ffd04b;
+					}
+					.el-submenu__title{
+						color: #fff;
+					}
+					.el-submenu__title:hover{
+						background-color: rgb(41, 45, 48);
+					}
 					.el-icon-message{
 						width: 16px;
 						font-size: 15px;
@@ -246,7 +258,6 @@
 						height:auto;
 						display:none;
 					}
-
 				}
 			}
 			.menu-collapsed{
@@ -258,20 +269,16 @@
 				width: 230px;
 			}
 			.content-container {
-				// background: #f1f2f7;
 				flex:1;
-				// position: absolute;
-				// right: 0px;
-				// top: 0px;
-				// bottom: 0px;
-				// left: 230px;
 				overflow-y: scroll;
 				padding: 20px;
 				.breadcrumb-container {
-					//margin-bottom: 15px;
 					.title {
 						width: 200px;
 						float: left;
+						font-size: 14px;
+						font-weight: bold;
+						margin-bottom: 10px;
 						color: #475669;
 					}
 					.breadcrumb-inner {

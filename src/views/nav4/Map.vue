@@ -19,21 +19,21 @@ echarts.registerMap('china', china)
 
 export default {
     name: "mapDemo",
-  data() {
-    return {
+    data() {
+        return {
 
-    };
-  },
+        }
+    },
   //钩子函数  不了解的话 建议看看 vue的生命周期
-  mounted() {
-      this.mapEchartsInit();
-  },
-  methods:{
-      mapEchartsInit(){
-        var myChart=echarts.init(this.$refs.map);
-        myChart.setOption(option, true);
-      }
-  }
+    mounted(){
+        this.mapEchartsInit();
+    },
+    methods : {
+        mapEchartsInit(){
+            var myChart=echarts.init(this.$refs.map);
+            myChart.setOption(option, true);
+        }
+    }
 }
 </script>
 
