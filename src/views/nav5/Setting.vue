@@ -59,10 +59,6 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    prop="id"
-                    label="登录用户名"
-                ></el-table-column>
-                <el-table-column
                     prop="title"
                     label="登录用户名"
                 ></el-table-column>
@@ -167,14 +163,17 @@ export default {
             this.$confirm("确认删除该记录吗?", "提示", {
 					type: 'warning'
 				}).then(() => {
+                    this.loading = true
                     let para = {id: row.id}
-                    console.log(para)
 					delectUserList(para).then(res => {
-                        console.log(res)
+                        this.loading = false
+                        
                         this.$message({
-							message: res.msg,
+                            message: res.msg,
 							type: 'success'
-						})
+                        })
+                        
+                        console.log(res)
                     })
 				}).catch((msg) => {
                     console.log(msg)
