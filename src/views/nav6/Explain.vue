@@ -36,7 +36,7 @@
                 <el-table-column prop="city" label="城市" min-width="25"></el-table-column>
                 <el-table-column prop="code" label="建议留言">
                     <template slot-scope="scope">
-                        <span class="copytext" :id="'code_'+scope.$index">{{ scope.row.code }}</span>
+                        <span class="copytext">{{  }}</span>
                         <span> {{  }}</span>
                     </template>
                 </el-table-column>

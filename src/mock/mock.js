@@ -7,18 +7,18 @@ export default {
   /**
    * mock bootstrap
    */
-  bootstrap() {
-    let mock = new MockAdapter(axios);
+    bootstrap() {
+      let mock = new MockAdapter(axios);
 
-    // mock success request
-    mock.onGet('/success').reply(200, {
-      msg: 'success'
-    });
+      // mock success request
+      mock.onGet('/success').reply(200, {
+        msg: 'success'
+      });
 
-    // mock error request
-    mock.onGet('/error').reply(500, {
-      msg: 'failure'
-    });
+      // mock error request
+      mock.onGet('/error').reply(500, {
+          msg: 'failure'
+      });
 
     //登录
     mock.onPost('/login').reply(config => {
@@ -149,6 +149,42 @@ export default {
         }, 500);
       });
     });
-
   }
 };
+
+//使用axios异步操作
+//import axios from "axios"
+
+const isDev = process.env.NODE_ENV === "development"
+
+//http://rap2api.taobao.org/app/mock/240339/api/v1/setuserlist
+
+const service = axios.create({
+    baseURL : isDev ? "http://rap2api.taobao.org/app/mock/240339" : ""
+})
+
+//axios拦截器   (请求之前拦截/响应之后拦截)
+service.interceptors.request.use(config => {
+    //token放入localStorage.getItem("authToken")
+    config.data = {...config.data, "authToken" : "sdfsdfsdfasd"}
+    return config
+})
+
+service.interceptors.response.use(res => {
+    if(res.data.code = 200){
+        return res.data.data
+    }
+    else{
+        console.log("连接失败!")
+    }
+})
+
+//获取管理员
+export const getSetUserList = () => {
+    return service.post("/api/v1/setuserlist")
+}
+
+//删除管理员
+export const delectUserList = id => {
+    return service.post(`/api/v1/setuserlistdelete/${id}`)
+}

@@ -2,12 +2,13 @@
 	<el-row class="container">
 		<!-- 头部开始 -->
 		<el-col :span="24" class="header">
-			<el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
-				{{collapsed?'':sysName}}
+			<el-col :span="10" class="logo" :class="collapsed ? 'logo-collapse-width' : 'logo-width'">
+				<i class="fa fa-cog fa-spin"></i>
+				<span class="logo-title">{{ collapsed ? '' : sysName }}</span>
 			</el-col>
 			<el-col :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
-					<span class="el-dropdown-link userinfo-inner"><img src="../assets/user.jpg" /> {{sysUserName}}</span>
+					<span class="el-dropdown-link userinfo-inner"><img src="../assets/user.jpg" /> {{ sysUserName }}</span>
 					<el-dropdown-menu slot="dropdown">
 						<el-dropdown-item>我的消息</el-dropdown-item>
 						<el-dropdown-item>设置</el-dropdown-item>
@@ -80,7 +81,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'Web后台管理系统',
+				sysName:'Vue Admin',
 				collapsed:false,
 				sysUserName: '',
 				sysUserAvatar: '',
@@ -172,7 +173,7 @@
 				font-size: 22px;
 				padding-left:20px;
 				padding-right:20px;
-				border-color: rgba(238,241,146,0.3);
+				border-color: rgba(238, 241, 146, .3);
 				border-right-width: 1px;
 				border-right-style: solid;
 				img {
@@ -185,7 +186,11 @@
 				}
 			}
 			.logo-width{
-				width:230px;
+				width:200px;
+				text-align: center;
+				i{
+					margin-right: 7px;
+				}
 			}
 			.logo-collapse-width{
 				width:60px;
@@ -210,7 +215,13 @@
 				.el-menu{
 					height: 100%;
 					color: #fff;
-					background-color: #545c64;
+					background-color: #484f56;
+					i{
+						color: #fff;
+					}
+					.el-icon-platform-eleme{
+						margin-left: -4px;
+					}
 					.el-menu-item{
 						color: #fff;
 					}
@@ -219,6 +230,9 @@
 					}
 					.is-active{
 						color: #ffd04b;
+						.is-active{
+							background-color: rgb(41, 45, 48);
+						}
 					}
 					.el-submenu__title{
 						color: #fff;
@@ -228,12 +242,13 @@
 					}
 					.el-icon-message{
 						width: 16px;
-						font-size: 15px;
+						font-size: 18px;
 						margin-right: 10px;
 					}
 					.fa-map-marker{
-						width: 16px;
+						width: 14px;
 						font-size: 18px;
+						margin-left: 2px;
 					}
 					.fa-cog{
 						width: 16px;

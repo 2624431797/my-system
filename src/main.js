@@ -3,6 +3,10 @@ import App from './App'
 import router from './router'
 import store from './vuex/store'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
@@ -21,15 +25,14 @@ Vue.use(VueParticles)
 import dataV from '@jiaminghi/data-view'
 Vue.use(dataV)
 
+//图标
 import 'font-awesome/css/font-awesome.min.css'
 
+//Mock
 import Mock from './mock'
 Mock.bootstrap();
 
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
-Vue.use(ElementUI)
-
+//路由守卫
 router.beforeEach((to, from, next) => {
     if (to.path == '/login') {
         sessionStorage.removeItem('user');

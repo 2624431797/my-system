@@ -1,7 +1,7 @@
 export default {
     name : "大数据",
     path : "/",
-    iconCls : 'el-icon-message',//图标样式class
+    iconCls : 'el-icon-platform-eleme',//图标样式class
     component : () => import("@/views/Home"),
     children : [
         { 

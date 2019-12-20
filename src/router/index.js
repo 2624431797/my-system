@@ -12,6 +12,7 @@ import AMap from "./map"
 import Setting from "./setting"
 import Check from "./cheaking"
 import Explain from "./explain"
+import SetUserAdd from "./setuseradd"
 
 export default new VueRouter({
     routes : [
@@ -29,6 +30,7 @@ export default new VueRouter({
         Setting,
         Check,
         Explain,
+        SetUserAdd,
         {
             path : "*",
             hidden: true,

@@ -13,6 +13,6 @@ export default {
             name : "权限设置",
             path : "/setting",
             component : () => import("@/views/nav5/Setting")
-        }
+        },
     ]
 }

@@ -60,8 +60,9 @@ export default {
 #data-view {
     width: 100%;
     height: 100%;
-    background-image: url('../../components/datav/img/bg.png');
     color: #fff;
+    border-radius: 5px;
+    background-image: url('../../components/datav/img/bg.png');
 
   #dv-full-screen-container {
     background-size: 100% 100%;
