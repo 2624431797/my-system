@@ -184,7 +184,22 @@ export const getSetUserList = () => {
     return service.post("/api/v1/setuserlist")
 }
 
+//修改管理员
+export const editUserList = id => {
+    return service.post(`/api/v1/edituserlist/${id}`)
+}
+
 //删除管理员
 export const delectUserList = id => {
     return service.post(`/api/v1/setuserlistdelete/${id}`)
+}
+
+//保存管理员
+export const initUserList = (id, data) => {
+    return service.post(`/api/v1/inituserlist/${id}`, data)
+}
+
+//新增管理员
+export const addUserList = (data) => {
+    return service.post(`/api/v1/adduserlist`, data)
 }

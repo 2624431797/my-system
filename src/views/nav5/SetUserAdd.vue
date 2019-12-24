@@ -5,46 +5,85 @@
             shadow
         >
             <h3 class="setuser-header">
-                <b>· 修改用户 编辑用户</b>
+                <b v-if="icon">· 新增用户</b>
+                <b v-else>· 编辑用户</b>
                 <el-button icon="el-icon-arrow-left" @click="goback">返回</el-button>
             </h3>
             <el-form ref="form" :model="form" label-width="180px">
-                <el-form-item label="名称">
-                    <el-input v-model="form.name"></el-input>
+                <el-form-item label="姓名">
+                    <el-input 
+                        prefix-icon="fa fa-heart-o" 
+                        v-model="form.name" 
+                        placeholder="请输入姓名"
+                    ></el-input>
                 </el-form-item>
                 <el-form-item label="登录用户名">
-                    <el-input v-model="form.nickName"></el-input>
+                    <el-input 
+                        v-model="form.title"
+                        prefix-icon="el-icon-user" 
+                        placeholder="请输入用户名"
+                    ></el-input>
                 </el-form-item>
                 <el-form-item label="手机">
-                    <el-input v-model="form.phone"></el-input>
+                    <el-input 
+                        v-model="form.phone"
+                        prefix-icon="el-icon-phone-outline" 
+                        placeholder="请输入手机号"
+                    ></el-input>
                 </el-form-item>
                 <el-form-item label="邮箱">
-                    <el-input v-model="form.email"></el-input>
+                    <el-input 
+                        v-model="form.email"
+                        prefix-icon="el-icon-eleme" 
+                        placeholder="请输入邮箱"
+                    ></el-input>
+                </el-form-item>
+                <el-form-item label="发布时间">
+                    <el-date-picker
+                        v-model="form.createTime"
+                        type="datetime"
+                        placeholder="选择日期时间"
+                    >
+                    </el-date-picker>
                 </el-form-item>
                 <el-form-item label="地址">
-                    <el-input v-model="form.no"></el-input>
+                    <el-input 
+                        v-model="form.address"
+                        prefix-icon="el-icon-office-building" 
+                        placeholder="请输入地址"
+                    ></el-input>
                 </el-form-item>
                 <el-form-item label="固定电话">
-                    <el-input v-model="form.phone"></el-input>
+                    <el-input 
+                        v-model="form.phone"
+                        prefix-icon="fa fa-volume-control-phone" 
+                        placeholder="请输入固定电话号"
+                    ></el-input>
                 </el-form-item>
                 <el-form-item label="状态">
                     <el-radio-group v-model="form.status">
                     <el-radio :label="0">未激活</el-radio>
                     <el-radio :label="1">已激活</el-radio>
+                    <el-radio :label="2">超级管理员</el-radio>
                     </el-radio-group>
                 </el-form-item>
-                <el-form-item label="用户类型">
-                    <el-radio-group v-model="form.userType">
-                    <el-radio label="0">注册用户</el-radio>
-                    <el-radio label="1">后台配置用户</el-radio>
-                    </el-radio-group>
+                <el-form-item label="选择头像">
+                    <el-upload
+                        class="avatar-uploader"
+                        :action="baseURL + '/api/v1/inituserlist/' + form.id"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                    >
+                        <img v-if="form.img" :src="form.img" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
                 </el-form-item>
                 <el-form-item label="备注">
                     <el-input type="textarea" v-model="form.remarks"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="info">保存</el-button>
-                    <el-button type="primary">立即创建</el-button>
+                    <el-button @click="handleClickSaveBtn" v-if="icon" type="primary">立即创建</el-button>
+                    <el-button @click="handleClickEditBtn" v-else type="primary">立即保存</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -52,27 +91,81 @@
 </template>
 
 <script>
+import { editUserList, initUserList, addUserList } from "@/mock/mock"
+
 export default {
     data(){
         return {
             form: {
-                id: null,
-                no: '',
-                name: '',
-                nickName: '',
-                phone: '',
-                email: '',
-                mobile: '',
-                status: 1,
-                userType: '1',
-                remarks: ''
-            }
+                id : null,
+                name : '',
+                title : '',
+                phone : '',
+                email : '',
+                address : '',
+                status : '',
+                remarks : '',
+                createTime : '',
+                img : '',
+            },
+            icon : "",
+            imageUrl : "",
+            baseURL : "http://rap2api.taobao.org/app/mock/240339",
         }
     },
     methods : {
         goback(){
             this.$router.go(-1);
         },
+        loaded(){
+            this.icon = this.$route.params.icon
+
+            let para = {id : this.$route.params.row.id}
+            editUserList(para).then(res => {
+                this.form = res
+            })
+        },
+        handleAvatarSuccess(res, file){
+            if(res.status == 1){
+                this.adminInfo.avatar = res.image_path;
+            }else{
+                this.$message.error('上传图片失败！');
+            }
+        },
+        handleClickSaveBtn(){
+            addUserList(this.form).then(res => {
+                this.$confirm(res.msg + ", 是否返回列表?", "提示", {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'success'
+                }).then(() => {
+                    this.$router.push({
+                        path : "setting"
+                    })
+                }).catch(msg => {
+                    console.log(msg)
+                })
+            })
+        },
+        handleClickEditBtn(){
+            let para = this.form.id
+            initUserList(para, this.form).then(res => {
+                this.$confirm(res.msg + ", 是否返回列表?", "提示", {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'success'
+                }).then(() => {
+                    this.$router.push({
+                        path : "setting"
+                    })
+                }).catch(msg => {
+                    console.log(msg)
+                })
+            })
+        },
+    },
+    created(){
+        this.loaded()
     },
 }
 </script>
@@ -88,7 +181,7 @@ export default {
                 width: 100%;
                 margin-bottom: 10px;
                 b{
-                    font-size: 16px;
+                    font-size: 18px;
                     font-weight: bold;
                     color: #333;
                     margin-left: 25px;
@@ -105,6 +198,29 @@ export default {
                     .el-form-item__label{
                         padding: 0 30px 0 0;
                     }
+                }
+                .avatar-uploader .el-upload {
+                    border: 1px dashed #d9d9d9;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    position: relative;
+                    overflow: hidden;
+                }
+                .avatar-uploader .el-upload:hover {
+                    border-color: #409EFF;
+                }
+                .avatar-uploader-icon {
+                    font-size: 28px;
+                    color: #8c939d;
+                    width: 178px;
+                    height: 178px;
+                    line-height: 178px;
+                    text-align: center;
+                }
+                .avatar {
+                    width: 178px;
+                    height: 178px;
+                    display: block;
                 }
             }
         }

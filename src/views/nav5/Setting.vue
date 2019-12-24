@@ -4,7 +4,7 @@
             <h3 class="box-title" slot="header" style="width: 100%;">
                 <el-row style="width: 100%;">
                     <el-col :span="12">
-                        <router-link :to="{ path: 'setuseradd'}">
+                        <router-link :to="{name : '权限用户添加修改', path : 'setuseradd', params : {icon : true}}">
                             <el-button type="primary" icon="plus">新增</el-button>
                         </router-link>
                     </el-col>
@@ -76,7 +76,8 @@
                 ></el-table-column>
                 <el-table-column label="状态">
                     <template slot-scope="scope">
-                        {{ scope.row.status === 1 ? '已激活' : '未激活' }}
+                        <!-- {{ scope.row.status === 1 ? '已激活' : '未激活' }} -->
+                        {{ handleAdmin(scope.row.status) }}
                     </template>
                 </el-table-column>
                 <el-table-column label="操作" width="285">
@@ -84,7 +85,8 @@
                         <el-button
                             size="small"
                             type="default"
-                            icon="edit"
+                            icon="edit"   
+                            @click="handleEdit(scope.$index, scope.row)"
                         >编辑</el-button>
                         <el-button
                             size="small"
@@ -137,6 +139,7 @@ export default {
                 },
                 rows: [],
             },
+            icon : false,
         }
     },
     methods : {
@@ -148,7 +151,7 @@ export default {
                     this.tableData.pagination.total = res.total
 
                     this.loading = false
-                }, 2000);
+                }, 1000);
             })
         },
         handleSizeChange(val) {
@@ -167,18 +170,33 @@ export default {
                     let para = {id: row.id}
 					delectUserList(para).then(res => {
                         this.loading = false
-                        
                         this.$message({
                             message: res.msg,
 							type: 'success'
                         })
-                        
-                        console.log(res)
                     })
 				}).catch((msg) => {
                     console.log(msg)
 			})
         },
+        handleEdit(index, row){
+            this.$router.push({
+                name : '权限用户添加修改',
+                path : 'setuseradd', 
+                params : {row, icon : false}
+            })
+        },
+        handleAdmin(num){
+            if(num === 0){
+                return "未激活"
+            }
+            else if(num === 1){
+                return "已激活"
+            }
+            else{
+                return "超级管理员"
+            }
+        }
     },
     created(){
         this.getData()

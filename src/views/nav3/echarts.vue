@@ -18,7 +18,7 @@ export default {
         }
 	},
 	mounted(){
-		var chartBar = echarts.init(document.querySelector('#chartColumn'));
+		var chartBar = echarts.init(document.querySelector('#chartColumn'))
 		var option = {
 			title : {
 				text: '员工出勤情况',
@@ -49,15 +49,15 @@ export default {
 					],
 					itemStyle: {
 						emphasis: {
-						shadowBlur: 10,
-						shadowOffsetX: 0,
-						shadowColor: 'rgba(0, 0, 0, 0.5)',
+							shadowBlur: 10,
+							shadowOffsetX: 0,
+							shadowColor: 'rgba(0, 0, 0, 0.5)',
+						}
 					}
 				}
-			}
-		]
-	};
-	chartBar.setOption(option)
+			]
+		}
+		chartBar.setOption(option)
 	}
 }
 
