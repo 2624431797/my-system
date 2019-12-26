@@ -9,36 +9,41 @@
                 <b v-else>· 编辑用户</b>
                 <el-button icon="el-icon-arrow-left" @click="goback">返回</el-button>
             </h3>
-            <el-form ref="form" :model="form" label-width="180px">
-                <el-form-item label="姓名">
+            <el-form 
+                ref="form" 
+                :model="form" 
+                :rules="rules"
+                label-width="180px"
+            >
+                <el-form-item label="姓名" prop="name">
                     <el-input 
                         prefix-icon="fa fa-heart-o" 
                         v-model="form.name" 
                         placeholder="请输入姓名"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="登录用户名">
+                <el-form-item label="登录用户名" prop="title">
                     <el-input 
                         v-model="form.title"
                         prefix-icon="el-icon-user" 
                         placeholder="请输入用户名"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="手机">
+                <el-form-item label="手机" prop="phone">
                     <el-input 
                         v-model="form.phone"
                         prefix-icon="el-icon-phone-outline" 
                         placeholder="请输入手机号"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="邮箱">
+                <el-form-item label="邮箱" prop="email">
                     <el-input 
                         v-model="form.email"
                         prefix-icon="el-icon-eleme" 
                         placeholder="请输入邮箱"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="发布时间">
+                <el-form-item label="发布时间" prop="createTime">
                     <el-date-picker
                         v-model="form.createTime"
                         type="datetime"
@@ -46,21 +51,21 @@
                     >
                     </el-date-picker>
                 </el-form-item>
-                <el-form-item label="地址">
+                <el-form-item label="地址" prop="address">
                     <el-input 
                         v-model="form.address"
                         prefix-icon="el-icon-office-building" 
                         placeholder="请输入地址"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="固定电话">
+                <el-form-item label="固定电话" prop="phone">
                     <el-input 
                         v-model="form.phone"
                         prefix-icon="fa fa-volume-control-phone" 
                         placeholder="请输入固定电话号"
                     ></el-input>
                 </el-form-item>
-                <el-form-item label="状态">
+                <el-form-item label="状态" prop="status">
                     <el-radio-group v-model="form.status">
                     <el-radio :label="0">未激活</el-radio>
                     <el-radio :label="1">已激活</el-radio>
@@ -84,6 +89,7 @@
                 <el-form-item>
                     <el-button @click="handleClickSaveBtn" v-if="icon" type="primary">立即创建</el-button>
                     <el-button @click="handleClickEditBtn" v-else type="primary">立即保存</el-button>
+                    <el-button @click="resetForm('form')" type="primary">重置</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
@@ -92,6 +98,7 @@
 
 <script>
 import { editUserList, initUserList, addUserList } from "@/mock/mock"
+import { handleMobileNumber } from "@/api/validate"
 
 export default {
     data(){
@@ -100,7 +107,7 @@ export default {
                 id : null,
                 name : '',
                 title : '',
-                phone : '',
+                phone : null,
                 email : '',
                 address : '',
                 status : '',
@@ -111,6 +118,30 @@ export default {
             icon : "",
             imageUrl : "",
             baseURL : "http://rap2api.taobao.org/app/mock/240339",
+            rules : {
+                name : [
+                    { required: true, message: '请输入姓名', trigger: 'blur' },
+                ],
+                title : [
+                    { required: true, message: '请输入登录用户名', trigger: 'blur' },
+                ],
+                phone : [
+                    { required: true, message: '请输入手机号', trigger: 'blur' },
+                    // { validator: handleMobileNumber, trigger: 'change' }
+                ],
+                email : [
+                    { required: true, message: '请输入邮箱', trigger: 'blur' },
+                ],
+                createTime : [
+                    { required: true, message: '请输入发布时间', trigger: 'blur' },
+                ],
+                address : [
+                    { required: true, message: '请输入地址', trigger: 'blur' },
+                ],
+                status : [
+                    { required: true, message: '请选择状态', trigger: 'blur' },
+                ],
+            },
         }
     },
     methods : {
@@ -150,7 +181,7 @@ export default {
         handleClickEditBtn(){
             let para = this.form.id
             initUserList(para, this.form).then(res => {
-                this.$confirm(res.msg + ", 是否返回列表?", "提示", {
+                this.$confirm("保存成功, 是否返回列表?", "提示", {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'success'
@@ -163,6 +194,9 @@ export default {
                 })
             })
         },
+        resetForm(formName){
+            this.$refs[formName].resetFields();
+        }
     },
     created(){
         this.loaded()

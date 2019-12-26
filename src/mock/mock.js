@@ -203,3 +203,8 @@ export const initUserList = (id, data) => {
 export const addUserList = (data) => {
     return service.post(`/api/v1/adduserlist`, data)
 }
+
+//查找管理员
+export const searchUserList = params => {
+    return service.post(`/api/v1/searchuserlist`, { params: params })
+}

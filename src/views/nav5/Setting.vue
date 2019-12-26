@@ -9,14 +9,27 @@
                         </router-link>
                     </el-col>
                     <el-col :span="12">
-                        <div class="el-input" style="width: 300px; float: right;">
-                            <i class="el-input__icon el-icon-search"></i>
-                            <input 
-                                type="text" 
-                                placeholder="输入用户名称" 
-                                v-model="searchKey"
-                                class="el-input__inner">
-                        </div>
+                        <el-form 
+                            style="width: 400px; float: right;" 
+                            :inline="true"
+                            :model="filters"
+                        >
+                            <el-form-item>
+                                <el-input 
+                                    id="filter-input"
+                                    v-model="filters.name"
+                                    prefix-icon="el-icon-search" 
+                                    placeholder="输入用户姓名" 
+                                >
+                                </el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button 
+                                    type="primary" 
+                                    @click="handleSearch"
+                                >查询</el-button>
+                            </el-form-item>
+                        </el-form >
                     </el-col>
                 </el-row>
             </h3>
@@ -45,7 +58,7 @@
                 </el-table-column>
                 <el-table-column
                     prop="name"
-                    label="名称"
+                    label="姓名"
                 >
                     <template slot-scope="scope">
                         <el-popover trigger="hover" placement="top">
@@ -114,22 +127,16 @@
 
 <script>
 import moment from 'moment'
-import { getSetUserList, delectUserList } from "@/mock/mock"
+import { getSetUserList, delectUserList, searchUserList } from "@/mock/mock"
 
 export default {
     data(){
         return {
-            currentRow: {},
-            dialogVisible: false,
-            dialogLoading: false,
-            defaultProps: {
-                children: 'children',
-                label: 'name',
-                id: "id",
+            filters: {
+                name: ''
             },
-            roleTree: [],
             loading: false,
-            searchKey: '',
+            page: 1,
             tableData: {
                 pagination: {
                     total: 0,
@@ -153,6 +160,27 @@ export default {
                     this.loading = false
                 }, 1000);
             })
+        },
+        handleSearch(){
+            if(!this.filters.name){
+                this.getData()
+            }
+            else{
+                let para = {
+                    page: this.page,
+                    name: this.filters.name
+                }
+                this.loading = true
+                searchUserList(para).then(res => {
+                    setTimeout(() => {
+                        let newUserlist = [res.userlist]    //对象转化数组
+                        this.tableData.rows = newUserlist
+                        this.tableData.pagination.total = res.total
+
+                        this.loading = false
+                    }, 1000);
+                })
+            }   
         },
         handleSizeChange(val) {
             this.tableData.pagination.pageSize = val;
@@ -212,18 +240,6 @@ export default {
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
         .set-header{
             margin-bottom: 20px;
-            .el-row{
-                .el-col{
-                    .el-input{
-                        position: relative;
-                        i{
-                            position: absolute;
-                            right: 10px;
-                            color: #333;
-                        }
-                    }
-                }
-            }
         }
         .set-container{
             width: 100%;

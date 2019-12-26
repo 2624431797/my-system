@@ -21,6 +21,10 @@ import "./styles/main.scss"
 import VueParticles from 'vue-particles'  
 Vue.use(VueParticles)  
 
+//vue验证器
+import Validator from 'vue-validator'
+Vue.use(Validator)
+
 //DataV
 import dataV from '@jiaminghi/data-view'
 Vue.use(dataV)
