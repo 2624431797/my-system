@@ -37,6 +37,10 @@
 					prop="id"
 				></el-table-column>
 			    <el-table-column
+					label="订单 名称"
+					prop="id"
+				></el-table-column>
+			    <el-table-column
 					label="总价格"
 					prop="total_amount"
 				></el-table-column>
