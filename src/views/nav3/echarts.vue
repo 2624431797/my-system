@@ -9,13 +9,41 @@
 </template>
 
 <script>
-import echarts from 'echarts';
+import echarts from "echarts"
+import { getUserEchart } from "@/mock/mock"
 
 export default {
 	data(){
 		return {
-            
+            userdate : [
+				{value:552, name:'员工出勤'},
+				{value:310, name:'员工迟到'},
+				{value:234, name:'员工早退'},
+				{value:135, name:'员工请假'},
+				{value:999, name:'员工缺勤'}
+			],
+			//userdate : null,
         }
+	},
+	methods : {
+		initLoad(){
+			getUserEchart().then(res => {
+				let newArr = Object.values(...res)
+				let resArr = []
+				
+				newArr.map(item => {
+					//console.log(item)
+					resArr.push(item)
+				})
+
+				console.log(resArr)
+			})
+		}
+	},
+	created(){
+		this.initLoad()
+
+		console.log(this.userdate)
 	},
 	mounted(){
 		var chartBar = echarts.init(document.querySelector('#chartColumn'))
@@ -40,13 +68,7 @@ export default {
 					type: 'pie',
 					radius : '55%',
 					center: ['50%', '60%'],
-					data:[
-						{value:335, name:'员工出勤'},
-						{value:310, name:'员工迟到'},
-						{value:234, name:'员工早退'},
-						{value:135, name:'员工请假'},
-						{value:1548, name:'员工缺勤'}
-					],
+					data:this.userdate,
 					itemStyle: {
 						emphasis: {
 							shadowBlur: 10,
@@ -60,20 +82,14 @@ export default {
 		chartBar.setOption(option)
 	}
 }
-
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
     .chart-container {
         width: 100%;
         float: left;
     }
-    /*.chart div {
-        height: 400px;
-        float: left;
-    }*/
-
     .el-col {
         padding: 30px 20px;
     }

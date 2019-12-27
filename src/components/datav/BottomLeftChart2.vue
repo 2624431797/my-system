@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-left-chart-2">
     <div class="header-name">任务维修平均用时</div>
-    <div class="details-value"><span>55.1</span>小时</div>
+    <div class="details-value"><span>99.9</span>小时</div>
     <dv-charts :option="option" />
   </div>
 </template>

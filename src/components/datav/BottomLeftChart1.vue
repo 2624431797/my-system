@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-left-chart-1">
     <div class="header-name">机电设备完好率</div>
-    <div class="details-value"><span>99.01</span>%</div>
+    <div class="details-value"><span>99.99</span>%</div>
     <dv-charts :option="option" />
   </div>
 </template>
