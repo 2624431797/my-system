@@ -204,6 +204,11 @@ export const chartStaffList = () => {
     return service.post("/api/s1/userchartlist")
 }
 
+//订单员工
+export const getOrderStaff = () => {
+    return service.post("/api/s1/orderstaff")
+}
+
 /* 概况模块 */
 //概况员工
 export const getUserEchart = () => {

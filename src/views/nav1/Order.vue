@@ -3,9 +3,9 @@
         <div class="table_container">
             <el-table
 			    :data="tableData"
+			    style="width: 100%"
                 :expand-row-keys='expendRow'
                 :row-key="row => row.index"
-			    style="width: 100%"
             >
 			    <el-table-column type="expand">
 					<template slot-scope="props">
@@ -60,29 +60,31 @@
 </template>
 
 <script>
-    export default {
-        data(){
-            return {
-                tableData: [],
-                currentRow: null,
-                offset: 0,
-                limit: 20,
-                count: 0,
-                currentPage: 1,
-                restaurant_id: null,
-                expendRow: [],
-            }
-        },
-        created(){
-        	
-        },
-        mounted(){
-            
-        },
-        methods : {
-            
-        },
-    }
+import { getOrderStaff } from "@/mock/mock"
+
+export default {
+	data(){
+		return {
+			tableData: [],
+			currentRow: null,
+			offset: 0,
+			limit: 20,
+			count: 0,
+			currentPage: 1,
+			restaurant_id: null,
+			expendRow: [],
+		}
+	},
+	created(){
+		
+	},
+	mounted(){
+		
+	},
+	methods : {
+		
+	},
+}
 </script>
 
 <style lang="less">
