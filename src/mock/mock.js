@@ -245,3 +245,9 @@ export const addUserList = (data) => {
 export const searchUserList = params => {
     return service.post(`/api/v1/searchuserlist`, { params: params })
 }
+
+/* 说明模块 */
+//员工轮播
+export const getUserBanner = () => {
+    return service.post("/api/b1/userbanner")
+}

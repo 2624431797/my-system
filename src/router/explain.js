@@ -8,6 +8,11 @@ export default {
             name : "员工说明",
             path : "/explain",
             component : () => import("@/views/nav6/Explain")
+        },
+        {
+            name : "员工轮播",
+            path : "/userbanner",
+            component : () => import("@/views/nav6/Userbanner")
         }
     ]
 }

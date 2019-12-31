@@ -1,21 +1,14 @@
 <template>
-    <div class="line1">
-        <div id="line1" class="" style="width: 90%;height:450px;"></div>
+    <div class="line">
+        <div id="line" style="width: 90%;height:450px;"></div>
     </div>
 </template>
 
 <script>
-import echarts from 'echarts/lib/echarts'
-// 引入柱状图
-import 'echarts/lib/chart/bar';
-import 'echarts/lib/chart/line';
-import 'echarts/lib/component/title';
-import 'echarts/lib/component/legend';
-import 'echarts/lib/component/toolbox';
-import 'echarts/lib/component/markPoint';
-import 'echarts/lib/component/tooltip';
+import echarts from "echarts"
+
 export default {
-    props: ['sevenDate', 'sevenDay'],
+    props: ["sevenDate1", "sevenDate2", "sevenDate3", "sevenDay"],
     methods: {
         initData(){
             const colors = ['#5793f3', '#675bba', '#d14a61'];
@@ -83,7 +76,7 @@ export default {
                     {
                         name:'新注册用户',
                         type:'line',
-                        data:this.sevenDate[0],
+                        data: this.sevenDate1,
                         yAxisIndex: 1,
                         markPoint: {
                             data: [
@@ -95,7 +88,7 @@ export default {
                     {
                         name:'新增订单',
                         type:'line',
-                        data:this.sevenDate[1],
+                        data: this.sevenDate2,
                         yAxisIndex: 1,
                         markPoint: {
                             data: [
@@ -107,7 +100,7 @@ export default {
                     {
                         name:'新增管理员',
                         type:'line',
-                        data:this.sevenDate[2],
+                        data: this.sevenDate3,
                         yAxisIndex: 1,
                         markPoint: {
                             data: [
@@ -118,19 +111,25 @@ export default {
                     }
                 ]
             }
-            this.myChart.setOption(option);
+            this.myChart.setOption(option)
         }
     },
-    watch: {
-        sevenDate(){
+    watch : {
+        sevenDate1(){
+            this.initData()
+        },
+        sevenDate2(){
+            this.initData()
+        },
+        sevenDate3(){
             this.initData()
         },
         sevenDay(){
             this.initData()
-        }
+        },
     },
     mounted(){
-        this.myChart = echarts.init(document.getElementById('line1'));
+        this.myChart = echarts.init(document.getElementById('line'));
         this.initData()
     },
 }

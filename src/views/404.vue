@@ -18,7 +18,7 @@
             align-items: center;
             background: #2d3039;
             img{
-                width: 1000px;
+                width: 1000px;                          
                 height: 600px;
             }
             a{

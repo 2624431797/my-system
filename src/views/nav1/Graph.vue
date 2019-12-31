@@ -15,7 +15,12 @@
                 <el-col :span="4"><div class="data_list"><span class="data_num">{{allAdminCount}}</span> 管理员</div></el-col>
             </el-row>
 		</div>
-		<Tendency :sevenDate='sevenDate' :sevenDay='sevenDay'></Tendency>
+		<Tendency 
+			:sevenDate1="sevenDate1"
+			:sevenDate2="sevenDate2"
+			:sevenDate3="sevenDate3"
+			:sevenDay="sevenDay"
+		></Tendency>
 	</section>
 </template>
 
@@ -33,9 +38,11 @@ export default {
 			allUserCount: null,
 			allOrderCount: null,
 			allAdminCount: null,
+			newRes: null,
 			sevenDay: [],
-			sevenDate: [[], [], []],
-			sevenDate: [[34, 46, 155, 13, 17, 246, 6],[51, 193, 13, 99, 9, 12, 85],[46, 179, 53, 47, 126, 91, 164]],
+			sevenDate1: [],
+			sevenDate2: [],
+			sevenDate3: [],
 		}
 	},
 	components: {
@@ -52,10 +59,9 @@ export default {
 				this.allAdminCount = res.user.alladmincount
 			})
 		},
-		getSevenData(){
-			chartStaffList().then(res => {
+		async getSevenData(){
+			await chartStaffList().then(res => {
 				let newStr = Object.values(res.chart)
-				console.log(res.chart)
 
 				let newobj1 = Object.values(newStr[0])
 				let newobj2 = Object.values(newStr[1])
@@ -65,25 +71,28 @@ export default {
 				let newArr2 = Object.values(newobj2[0])
 				let newArr3 = Object.values(newobj3[0])
 
-				this.sevenDate[0] = newArr1
-				this.sevenDate[1] = newArr2
-				this.sevenDate[2] = newArr3
-			}).catch(msg => {
-				console.log(msg)
+				const newArr = [[], [], []]
+				newArr[0] = newArr1
+				newArr[1] = newArr2
+				newArr[2] = newArr3
+
+				this.newRes = newArr
+			})
+			const newStr = this.newRes
+			Promise.all(newStr).then(res => {
+				this.sevenDate1 = res[0]
+				this.sevenDate2 = res[1]
+				this.sevenDate3 = res[2]
 			})
 		}
 	},
 	created(){
+		this.getSevenData()
 		this.initData()
-
 		for (let i = 6; i > -1; i--) {
 			const date = dtime(new Date().getTime() - 86400000*i).format('YYYY-MM-DD')
 			this.sevenDay.push(date)
 		}
-
-		this.getSevenData()
-		console.log(this.sevenDay)
-		console.log(this.sevenDate)
 	},
 }
 </script>

@@ -1,8 +1,6 @@
 <template>
     <section class="explainbox">
-        <div class="ex-swiper">
-            <slider v-bind="setting" />
-        </div>
+        
         <div class="ex-container">
             <h3>· 建议留言</h3>
             <!-- 添加框开始 -->
@@ -23,7 +21,7 @@
                 class="freshbtn" 
                 style="width:100%;" 
                 type="warning"
-                @click="fresh"
+                @click="freshLoad"
             >刷 新</el-button>
             <el-table 
                 border 
@@ -68,33 +66,9 @@
 </template>
 
 <script>
-import slider from 'vue-image-scroll'
-
 export default {
     data(){
         return {
-            setting: {
-                styleObject: {
-                    width: '1600',
-                    height: '526'
-                },
-                image: [
-                    'static/img/0.jpg',
-                    'static/img/1.jpg', 
-                    'static/img/2.jpg', 
-                    'static/img/3.jpg',
-                    'static/img/4.jpg',
-                    'static/img/5.jpg',
-                    'static/img/6.jpg',
-                    'static/img/7.jpg',
-                    'static/img/8.jpg',
-                ],
-                interval: 5000,
-                imgStyle: {
-                    width: '1600',
-                    height: '526'
-                },
-            },
             isRouterAlive : true,
             loading : false,
             mayiForm : {
@@ -118,9 +92,6 @@ export default {
             ]
         }
     },
-    components : {
-        slider
-    },
     methods : {
         add(){
             if(this.mayiForm.code == ""){
@@ -134,7 +105,7 @@ export default {
                 console.log(this.mayiForm.code)
             }
         },
-        fresh(){
+        freshLoad(){
             this.isRouterAlive = false
             this.loading = true
             setTimeout(() => {
@@ -142,7 +113,7 @@ export default {
                     this.isRouterAlive = true
                     this.loading = false
                 })
-            }, 2000);
+            }, 1000);
         },
     }
 }
@@ -150,36 +121,6 @@ export default {
 
 <style lang="scss">
     .explainbox{
-        .ex-swiper{
-            width: 100%;
-            padding: 30px 0 10px 20px;
-            background: rgb(27, 25, 25);
-            .slider{
-                .button{
-                    top: calc(100% - 50px); 
-                    em{
-                        width: 30px!important;
-                        height: 3px!important;
-                        margin: 0 4px;
-                    }
-                }
-                .control{
-                    em{
-                        display: block;
-                        width: 44px!important;
-                        height: 44px!important;
-                        background-color: rgba(0, 0, 0, .5);
-                        border-radius: 50%;
-                    }
-                    em:first-child{
-                        left: 50px!important;
-                    }
-                    em:last-child{
-                        right: 50px!important;
-                    }
-                }
-            }
-        }
         .ex-container{
             width: 100%;
             margin-top: 16px;
@@ -216,6 +157,8 @@ export default {
             }
         }
         .ex-footer{
+            position: fixed;
+            bottom: 0;
             width: 100%;
             text-align: center;
             padding: 35px 10px;
