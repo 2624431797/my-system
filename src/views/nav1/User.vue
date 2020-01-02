@@ -61,7 +61,7 @@ export default {
 	},
 	methods: {
 		formatSex(row, column){
-			if(row.sex){ return "男" } return "女";
+			if(row.sex) return "男"; return "女";
 		},
 		handleSearchStaff(){
 			if(!this.filters.name){

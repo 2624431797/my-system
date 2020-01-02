@@ -59,6 +59,7 @@
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
     "url-loader": "^0.5.8",
+    "vue-clipboard2": "^0.3.1",
     "vue-loader": "^11.1.4",
     "vue-particles": "^1.0.9",
     "vue-style-loader": "^2.0.0",

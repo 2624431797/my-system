@@ -32,6 +32,14 @@ Vue.use(dataV)
 //图标
 import 'font-awesome/css/font-awesome.min.css'
 
+//复制粘贴
+import clipboard from 'clipboard'
+Vue.prototype.clipboard = clipboard
+
+//moment
+import moment from 'moment'
+Vue.prototype.$moment = moment
+
 //Mock
 import Mock from './mock'
 Mock.bootstrap();

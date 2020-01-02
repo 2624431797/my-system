@@ -14,6 +14,8 @@ https://www.bootcss.com/
 https://www.json.cn/
 https://www.bejson.com/
 https://www.bootcdn.cn/jquery/
+http://www.clipboardjs.cn/
+https://www.yuque.com/rap/rapper/readme
 http://mockjs.com/
 https://www.jianshu.com/p/2a1deb56d61f
 https://www.cnblogs.com/yangguoe/p/9364017.html

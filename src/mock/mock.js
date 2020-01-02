@@ -10,7 +10,7 @@ export default {
         // mock success request
         mock.onGet('/success').reply(200, {
             msg: 'success'
-        });
+        })
 
         // mock error request
         mock.onGet('/error').reply(500, {
@@ -206,7 +206,7 @@ export const chartStaffList = () => {
 
 //订单员工
 export const getOrderStaff = () => {
-    return service.post("/api/s1/orderstaff")
+    return service.post("/api/s1/getorderstaff")
 }
 
 /* 概况模块 */
@@ -246,8 +246,14 @@ export const searchUserList = params => {
     return service.post(`/api/v1/searchuserlist`, { params: params })
 }
 
+/* 地图模块 */
+//员工地图
+export const getUserMap = () => {
+    return service.post("/api/d1/getusermap")
+}
+
 /* 说明模块 */
-//员工轮播
-export const getUserBanner = () => {
-    return service.post("/api/b1/userbanner")
+//员工说明
+export const getUserExplain = () => {
+    return service.post("/api/t1/getuserexplain")
 }

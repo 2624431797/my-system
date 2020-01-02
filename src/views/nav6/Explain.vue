@@ -1,17 +1,16 @@
 <template>
     <section class="explainbox">
-        
         <div class="ex-container">
             <h3>· 建议留言</h3>
             <!-- 添加框开始 -->
             <el-form class="outer">
                 <el-form-item class='text'>
-                    <el-input v-model="mayiForm.code" placeholder="请留下你的留言吧~"></el-input>
+                    <el-input id="outer-input" v-model="mayiForm.code" placeholder="请留下你的留言吧~"></el-input>
                 </el-form-item>
                 <el-form-item class='btn'>
                     <el-button 
                         type="primary"
-                        @click="add"
+                        @click="handlerAdd"
                     >添加</el-button>
                 </el-form-item>
             </el-form>
@@ -21,8 +20,8 @@
                 class="freshbtn" 
                 style="width:100%;" 
                 type="warning"
-                @click="freshLoad"
-            >刷 新</el-button>
+                @click="handlerFresh"
+            >刷&ensp;新</el-button>
             <el-table 
                 border 
                 style="width: 100%" 
@@ -31,41 +30,30 @@
                 v-loading="loading"
                 :data="tableData"
             >
-                <el-table-column prop="city" label="城市" min-width="25"></el-table-column>
+                <el-table-column prop="city" label="城市" min-width="20"></el-table-column>
                 <el-table-column prop="code" label="建议留言">
                     <template slot-scope="scope">
-                        <span class="copytext">{{  }}</span>
-                        <span> {{  }}</span>
+                        <span class="copytext" id="success_form_input">{{ scope.row.code }}</span>
                     </template>
                 </el-table-column>
                 <el-table-column 
-                    prop="updatetime" 
+                    prop="time" 
                     label="时间" 
                     min-width="25"
-                >
-                    <span>{{  }}</span>
-                </el-table-column>
-                <el-table-column label="操作" fixed="right" min-width="28">
-                    <template slot-scope="scope">
-                        <div>
-                            <el-button 
-                                id='copy_btn' 
-                                data-clipboard-action="copy" 
-                                size="mini" 
-                            >复制</el-button>
-                        </div>
-                    </template>
-                </el-table-column>
+                    :formatter="handlerTime"
+                ></el-table-column>
             </el-table>
             <!-- 表单框结束 -->
         </div>
         <div class="ex-footer">
-            Copyright &copy; 2019-2020 &ensp;<a href="https://github.com/2624431797/my-system.git">Lanux</a>&ensp;. All rights reserved.
+            Copyright &copy; 2019-2020 &ensp;<a href="https://github.com/2624431797/my-system.git">Lanux</a>&ensp;. All rights reserved
         </div>
     </section>
 </template>
 
 <script>
+import { getUserExplain } from "@/mock/mock"
+
 export default {
     data(){
         return {
@@ -74,26 +62,12 @@ export default {
             mayiForm : {
                 code: ""
             },
-            tableData : [
-                {
-                    id: "1",
-                    createtime: "2016-05-02",
-                    city: "青岛",
-                    code: "小蛋白",
-                    ip: ""
-                },
-                {
-                    id: "2",
-                    createtime: "2016-05-04",
-                    city: "北京",
-                    code: "哈哈哈哈",
-                    ip: ""
-                }
-            ]
+            tableData : [],
+            copyBtn: null
         }
     },
     methods : {
-        add(){
+        handlerAdd(){
             if(this.mayiForm.code == ""){
                 this.$message({
                     type: "error",
@@ -103,11 +77,13 @@ export default {
             } 
             else{
                 console.log(this.mayiForm.code)
+                document.getElementById("outer-input").value = ""
             }
         },
-        freshLoad(){
+        handlerFresh(){
             this.isRouterAlive = false
             this.loading = true
+            this.handlerGetUser()
             setTimeout(() => {
                 this.$nextTick(() => {
                     this.isRouterAlive = true
@@ -115,7 +91,18 @@ export default {
                 })
             }, 1000);
         },
-    }
+        handlerGetUser(){
+            getUserExplain().then(res => {
+                this.tableData = res.explainlist
+            })
+        },
+        handlerTime(para){
+            return this.$moment(para.time).format('YYYY-MM-DD HH:mm:ss')
+        },
+    },
+    created(){
+        this.handlerGetUser()
+    },
 }
 </script>
 
@@ -151,6 +138,7 @@ export default {
                 font-size: 16px;
                 font-weight: bold;
                 margin-bottom: 10px;
+                background: #409EFF;
             }
             .table-container{
                 width: 100%;

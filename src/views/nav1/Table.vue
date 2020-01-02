@@ -198,11 +198,9 @@
 				this.listLoading = true;
 				//NProgress.start();
 				getUserListPage(para).then((res) => {
-					console.log(para, res.data)
 					this.total = res.data.total;
 					this.users = res.data.users;
 					this.listLoading = false;
-					//NProgress.done();
 				});
 			},
 			//删除
