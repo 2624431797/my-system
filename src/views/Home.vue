@@ -56,6 +56,9 @@
 			<!-- 主体内容开始 -->
 			<section class="content-container">
 				<div class="grid-content bg-purple-light">
+					<el-col :span="24" class="breadcrumb-linkbox">
+
+					</el-col>
 					<el-col :span="24" class="breadcrumb-container">
 						<strong class="title">{{$route.name}}</strong>
 						<el-breadcrumb separator="/" class="breadcrumb-inner">
@@ -98,17 +101,6 @@
 			}
 		},
 		methods: {
-			onSubmit() {
-				console.log('submit!');
-			},
-			handleopen() {
-				//console.log('handleopen');
-			},
-			handleclose() {
-				//console.log('handleclose');
-			},
-			handleselect: function (a, b) {
-			},
 			//退出登录
 			logout: function () {
 				var _this = this;
@@ -286,8 +278,15 @@
 			.content-container {
 				flex:1;
 				overflow-y: scroll;
-				padding: 20px;
+				padding: 10px;
+				.breadcrumb-linkbox{
+					width: 100%;
+					height: 40px;
+					border-bottom: 1px solid #d8dce5;
+					box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+				}
 				.breadcrumb-container {
+					margin-top: 10px;
 					.title {
 						width: 200px;
 						float: left;
