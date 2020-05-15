@@ -254,7 +254,7 @@
 						width: 16px;
 						font-size: 16px;
 					}
-					.el-icon-warning{
+					.el-icon-warning, .el-icon-s-grid{
 						width: 16px;
 						font-size: 14px;
 						margin-right: 10px;

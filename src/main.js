@@ -3,23 +3,23 @@ import App from './App'
 import router from './router'
 import store from './vuex/store'
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+Vue.use(ElementUI)
 
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-  
+
 Vue.use(VueQuillEditor)
 
 //通用样式
 import "./styles/main.scss"
 
 //添加星空特效
-import VueParticles from 'vue-particles'  
-Vue.use(VueParticles)  
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
 
 //vue验证器
 import Validator from 'vue-validator'
@@ -42,7 +42,13 @@ Vue.prototype.$moment = moment
 
 //Mock
 import Mock from './mock'
-Mock.bootstrap();
+Mock.bootstrap()
+
+//BaiDu地图
+import BaiduMap from 'vue-baidu-map'
+Vue.use(BaiduMap, {
+    ak: 'YVE2oN3K3SDZH8XpUkYj6ezf2h4wIkNf' // 百度地图秘钥
+})
 
 //路由守卫
 router.beforeEach((to, from, next) => {
@@ -53,9 +59,10 @@ router.beforeEach((to, from, next) => {
     let user = JSON.parse(sessionStorage.getItem('user'));
 
     if (!user && to.path != '/login') {
-        next({ path: '/login' })
-    } 
-    else {
+        next({
+            path: '/login'
+        })
+    } else {
         next()
     }
 })
@@ -67,4 +74,3 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app')
-

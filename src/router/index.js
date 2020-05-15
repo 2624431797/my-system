@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 Vue.use(VueRouter)
 
 import Login from "./login"
@@ -12,14 +11,14 @@ import AMap from "./map"
 import Setting from "./setting"
 import Check from "./cheaking"
 import Explain from "./explain"
+import AntV from "./antv"
 import SetUserAdd from "./setuseradd"
 
 export default new VueRouter({
-    routes : [
-        {
-            path : "/",
+    routes: [{
+            path: "/",
             hidden: true,
-            redirect : "/login"
+            redirect: "/login"
         },
         Login,
         NotFound,
@@ -30,11 +29,12 @@ export default new VueRouter({
         Setting,
         Check,
         Explain,
+        AntV,
         SetUserAdd,
         {
-            path : "*",
+            path: "*",
             hidden: true,
-            redirect : "/404"
+            redirect: "/404"
         }
     ]
-});
+})
