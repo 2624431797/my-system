@@ -158,7 +158,7 @@ export default {
                     this.tableData.pagination.total = res.total
 
                     this.loading = false
-                }, 1000);
+                }, 1000)
             })
         },
         handleSearch(){
@@ -178,16 +178,16 @@ export default {
                         this.tableData.pagination.total = res.total
 
                         this.loading = false
-                    }, 1000);
+                    }, 1000)
                 })
             }   
         },
         handleSizeChange(val) {
-            this.tableData.pagination.pageSize = val;
+            this.tableData.pagination.pageSize = val
             this.getData();
         },
         handleCurrentChange(val) {
-            this.tableData.pagination.pageNo = val;
+            this.tableData.pagination.pageNo = val
             this.getData();
         },
         handleDelete(index, row) {         

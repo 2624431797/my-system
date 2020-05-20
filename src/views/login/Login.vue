@@ -93,8 +93,7 @@
                this.$refs.ruleForm2.resetFields();
             },
             handleSubmit2(ev) {
-                console.log(0)
-                var _this = this;
+                var _this = this
                 this.$refs.ruleForm2.validate((valid) => {
                     if (valid) {
                         //_this.$router.replace('/table');
@@ -109,16 +108,15 @@
                                 this.$message({
                                     message: msg,
                                     type: 'error'
-                                });
+                                })
                             } else {
-                                sessionStorage.setItem('user', JSON.stringify(user));
-                                this.$router.push({ path: '/checking' });
+                                sessionStorage.setItem('user', JSON.stringify(user))
+                                this.$router.push({ path: '/checking' })
                             }
                         })
                     } 
                     else {
-                        console.log('error submit!!');
-                        return false;
+                        return false
                     }
                 })
             }

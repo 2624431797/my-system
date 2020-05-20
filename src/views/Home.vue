@@ -16,26 +16,26 @@
 					</el-dropdown-menu>
 				</el-dropdown>
 			</el-col>
+			<div class="collapsedbox" :class="collapsed ? 'collapsedbox-active' : ''" @click="collapse">
+				<i v-if="!collapsed" class="el-icon-s-fold"></i>
+				<i v-else class="el-icon-s-unfold"></i>
+			</div>
 		</el-col>
 		<!-- 头部结束 -->
 		<!-- 内容开始 -->
 		<el-col :span="24" class="main">
 			<!-- 导航菜单开始 -->
-			<aside :class="collapsed?'menu-collapsed':'menu-expanded'">
+			<aside :class="collapsed ? 'menu-collapsed' : ''" v-if="!collapsed">
 				<el-menu 
 					:default-active="$route.path" 
 					class="el-menu-vertical-demo" 
-					@open="handleopen" 
-					@close="handleclose" 
-					@select="handleselect"
 					router 
-					v-show="!collapsed"
 				>
 					<template 
 						v-for="(item,index) in $router.options.routes" 
 					>	
 						<div v-if="!item.hidden" :key="index">
-							<el-submenu :index="index+''">
+							<el-submenu :index="index + ''">
 								<template slot="title">
 									<i :class="item.iconCls"></i>
 									{{item.name}}
@@ -55,10 +55,14 @@
 			<!-- 导航菜单结束 -->
 			<!-- 主体内容开始 -->
 			<section class="content-container">
-				<div class="grid-content bg-purple-light">
-					<el-col :span="24" class="breadcrumb-linkbox">
-
+				<!-- 快速导航栏开始 -->
+				<div class="tagsviewbox">
+					<el-col :span="24" class="tagsview">
+						<tags-view />
 					</el-col>
+				</div>
+				<!-- 快速导航栏结束 -->
+				<div class="grid-content bg-purple-light">
 					<el-col :span="24" class="breadcrumb-container">
 						<strong class="title">{{$route.name}}</strong>
 						<el-breadcrumb separator="/" class="breadcrumb-inner">
@@ -81,55 +85,60 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				sysName:'Vue Admin',
-				collapsed:false,
-				sysUserName: '',
-				sysUserAvatar: '',
-				form: {
-					name: '',
-					region: '',
-					date1: '',
-					date2: '',
-					delivery: false,
-					type: [],
-					resource: '',
-					desc: ''
-				}
-			}
-		},
-		methods: {
-			//退出登录
-			logout: function () {
-				var _this = this;
-				this.$confirm('确认退出吗?', '提示', {
-					//type: 'warning'
-				}).then(() => {
-					sessionStorage.removeItem('user');
-					_this.$router.push('/login');
-				}).catch((msg) => {
-					console.log(msg)
-				});
-			},
-			//折叠导航栏
-			collapse:function(){
-				this.collapsed=!this.collapsed;
-			},
-			showMenu(i,status){
-				this.$refs.menuCollapsed.getElementsByClassName('submenu-hook-'+i)[0].style.display=status?'block':'none';
-			}
-		},
-		mounted() {
-			var user = sessionStorage.getItem('user');
-			if (user) {
-				user = JSON.parse(user);
-				this.sysUserName = user.name || '';
-				this.sysUserAvatar = user.avatar || '';
+import TagsView from "@/components/TagsView"
+
+export default {
+	data() {
+		return {
+			sysName:'Vue Admin',
+			collapsed:false,
+			sysUserName: '',
+			sysUserAvatar: '',
+			form: {
+				name: '',
+				region: '',
+				date1: '',
+				date2: '',
+				delivery: false,
+				type: [],
+				resource: '',
+				desc: ''
 			}
 		}
+	},
+	components: {
+		TagsView
+	},
+	methods: {
+		//退出登录
+		logout: function () {
+			var _this = this
+			this.$confirm('确认退出吗?', '提示', {
+				//type: 'warning'
+			}).then(() => {
+				sessionStorage.removeItem('user')
+				_this.$router.push('/login')
+			}).catch(msg => {
+				console.log(msg)
+			})
+		},
+		//折叠导航栏
+		collapse(){
+			this.collapsed = !this.collapsed;
+		},
+		showMenu(i, status){
+			this.$refs.menuCollapsed.getElementsByClassName("submenu-hook-" + i)[0].style.display = status ? "block" : "none"
+		}
+	},
+	mounted() {
+		var user = sessionStorage.getItem('user')
+		if (user) {
+			user = JSON.parse(user)
+			this.sysUserName = user.name || ''
+			this.sysUserAvatar = user.avatar || ''
+		}
 	}
+}
 </script>
 
 <style lang="scss">
@@ -140,10 +149,23 @@
 		bottom: 0px;
 		width: 100%;
 		.header {
+			position: relative;
 			height: 60px;
 			line-height: 60px;
-			background: $color-primary;
 			color:#fff;
+			background: $color-primary;
+			.collapsedbox{
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				margin: 10px 0px 0px 220px;
+				i{
+					font-size: 40px;
+				}
+			}
+			.collapsedbox-active{
+				margin: 10px 0px 0px 80px;
+			}
 			.userinfo {
 				text-align: right;
 				padding-right: 35px;
@@ -215,6 +237,7 @@
 						margin-left: -4px;
 					}
 					.el-menu-item{
+						min-width: 199px;
 						color: #fff;
 					}
 					.el-menu-item:hover{
@@ -258,12 +281,12 @@
 						position: relative;
 					}
 					.submenu{
-						position:absolute;
-						top:0px;
-						left:60px;
-						z-index:99999;
-						height:auto;
-						display:none;
+						position: absolute;
+						top: 0px;
+						left: 60px;
+						z-index: 99999;
+						height: auto;
+						display: none;
 					}
 				}
 			}
@@ -272,14 +295,14 @@
 				width: 60px;
 			}
 			.menu-expanded{
-				flex:0 0 230px;
-				width: 230px;
+				flex:0 0 200px;
+				width: 200px;
 			}
 			.content-container {
 				flex:1;
 				overflow-y: scroll;
 				padding: 10px;
-				.breadcrumb-linkbox{
+				.tagsviewbox{
 					width: 100%;
 					height: 40px;
 					border-bottom: 1px solid #d8dce5;
