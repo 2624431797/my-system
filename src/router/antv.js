@@ -4,9 +4,15 @@ export default {
     iconCls: "el-icon-s-grid",
     component: () => import("@/views/Home"),
     children: [{
-        path: "/antv",
+        path: "/antvline",
         component: () => import("@/views/nav7/main"),
-        name: "阿里可视",
+        name: "横向可视",
+        hidden: true
+    },
+    {
+        path: "/antvkeyboard",
+        component: () => import("@/views/nav7/keyboard"),
+        name: "纵向可视",
         hidden: true
     }]
 }

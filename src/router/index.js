@@ -28,8 +28,8 @@ export default new VueRouter({
         AMap,
         Setting,
         Check,
-        Explain,
         AntV,
+        Explain,
         SetUserAdd,
         {
             path: "*",

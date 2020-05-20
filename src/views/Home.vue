@@ -247,10 +247,10 @@ export default {
 					}
 					.is-active{
 						color: #ffd04b;
-						z-index: 999;
+						z-index: 9;
 						.is-active{
 							background-color: rgb(41, 45, 48);
-							z-index: 999;
+							z-index: 9;
 						}
 					}
 					.el-submenu__title{
@@ -307,7 +307,7 @@ export default {
 				flex:1;
 				padding: 10px;
 				overflow-y: scroll;
-				z-index: 99999;
+				z-index: 99;
 				background: #fff;
 				.tagsviewbox{
 					width: 100%;

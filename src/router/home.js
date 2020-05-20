@@ -5,13 +5,13 @@ export default {
     component: () => import("@/views/Home"),
     children: [{
             path: '/main',
-            component: () => import("@/views/nav1/Main"),
+            component: () => import("@/views/nav1/Graph"),
             name: '员工主页',
             hidden: true
         },
         {
             path: '/graph',
-            component: () => import("@/views/nav1/Graph"),
+            component: () => import("@/views/nav1/Main"),
             name: '员工图表',
             hidden: true
         },
