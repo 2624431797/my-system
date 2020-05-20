@@ -8,7 +8,10 @@
 			</el-col>
 			<el-col :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
-					<span class="el-dropdown-link userinfo-inner"><img src="../assets/user.jpg" /> {{ sysUserName }}</span>
+					<span class="el-dropdown-link userinfo-inner">
+						<img src="../assets/user.jpg" />
+						<span>{{ sysUserName }}</span>
+					</span>
 					<el-dropdown-menu slot="dropdown">
 						<el-dropdown-item>我的消息</el-dropdown-item>
 						<el-dropdown-item>设置</el-dropdown-item>
@@ -25,33 +28,27 @@
 		<!-- 内容开始 -->
 		<el-col :span="24" class="main">
 			<!-- 导航菜单开始 -->
-			<aside :class="collapsed ? 'menu-collapsed' : ''" v-if="!collapsed">
-				<el-menu 
-					:default-active="$route.path" 
-					class="el-menu-vertical-demo" 
-					router 
-				>
-					<template 
-						v-for="(item,index) in $router.options.routes" 
-					>	
+			<section class="aside" :class="collapsed ? 'menu-collapsed' : ''">
+				<el-menu class="el-menu-vertical-demo" :default-active="$route.path" router > 
+					<template v-for="(item, index) in $router.options.routes">	
 						<div v-if="!item.hidden" :key="index">
 							<el-submenu :index="index + ''">
 								<template slot="title">
 									<i :class="item.iconCls"></i>
-									{{item.name}}
+									<span>{{item.name}}</span>
 								</template>
 								<el-menu-item 
 									v-for="child in item.children" 
 									:index="child.path" 
 									:key="child.path" 
 								>
-									<div>{{child.name}}</div>
+									<span>{{child.name}}</span>
 								</el-menu-item>
 							</el-submenu>
 						</div>
 					</template>
 				</el-menu>
-			</aside>
+			</section>
 			<!-- 导航菜单结束 -->
 			<!-- 主体内容开始 -->
 			<section class="content-container">
@@ -67,7 +64,7 @@
 						<strong class="title">{{$route.name}}</strong>
 						<el-breadcrumb separator="/" class="breadcrumb-inner">
 							<el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
-								{{ item.name }}
+								<span>{{ item.name }}</span>
 							</el-breadcrumb-item>
 						</el-breadcrumb>
 					</el-col>
@@ -85,7 +82,7 @@
 </template>
 
 <script>
-import TagsView from "@/components/TagsView"
+import TagsView from "@/components/Home/TagsView"
 
 export default {
 	data() {
@@ -159,12 +156,14 @@ export default {
 				width: 40px;
 				height: 40px;
 				margin: 10px 0px 0px 220px;
+				transition: all .5s ease-out;
 				i{
 					font-size: 40px;
 				}
 			}
 			.collapsedbox-active{
 				margin: 10px 0px 0px 80px;
+				transition: all .5s ease-out;
 			}
 			.userinfo {
 				text-align: right;
@@ -200,14 +199,16 @@ export default {
 				}
 			}
 			.logo-width{
-				width:200px;
+				width: 200px;
 				text-align: center;
+				transition: all .5s ease-out;
 				i{
 					margin-right: 7px;
 				}
 			}
 			.logo-collapse-width{
-				width:60px;
+				width: 60px;
+				transition: all .5s ease-out;
 			}
 			.tools{
 				padding: 0px 23px;
@@ -223,9 +224,10 @@ export default {
 			top: 60px;
 			bottom: 0px;
 			overflow: hidden;
-			aside {
-				flex:0 0 200px!important;
+			.aside {
 				width: 200px;
+				flex:0 0 200px;
+				transition: all .5s ease-out;
 				.el-menu{
 					height: 100%;
 					color: #fff;
@@ -245,8 +247,10 @@ export default {
 					}
 					.is-active{
 						color: #ffd04b;
+						z-index: 999;
 						.is-active{
 							background-color: rgb(41, 45, 48);
+							z-index: 999;
 						}
 					}
 					.el-submenu__title{
@@ -291,8 +295,9 @@ export default {
 				}
 			}
 			.menu-collapsed{
-				flex:0 0 60px;
-				width: 60px;
+				width: 0px;
+				flex:0 0 0px;
+				transition: all .5s ease-out;
 			}
 			.menu-expanded{
 				flex:0 0 200px;
@@ -300,8 +305,10 @@ export default {
 			}
 			.content-container {
 				flex:1;
-				overflow-y: scroll;
 				padding: 10px;
+				overflow-y: scroll;
+				z-index: 99999;
+				background: #fff;
 				.tagsviewbox{
 					width: 100%;
 					height: 40px;
