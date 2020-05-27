@@ -9,6 +9,11 @@ export default {
             path: '/page', 
             component: () => import("@/views/nav2/Page"), 
             name: '请假审批' 
+        },
+        {
+            path: '/usertable', 
+            component: () => import("@/views/nav2/Table"), 
+            name: '审批列表' 
         }
     ]
 }

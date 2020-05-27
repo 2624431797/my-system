@@ -11,8 +11,11 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
-
 Vue.use(VueQuillEditor)
+
+//$http
+import axios from "axios"
+Vue.prototype.$http = axios
 
 //通用样式
 import "./styles/main.scss"
@@ -20,6 +23,10 @@ import "./styles/main.scss"
 //添加星空特效
 import VueParticles from 'vue-particles'
 Vue.use(VueParticles)
+
+//cookie
+import Cookies from 'js-cookie'
+Vue.use(Cookies)
 
 //vue验证器
 import Validator from 'vue-validator'
