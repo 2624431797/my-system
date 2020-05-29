@@ -122,7 +122,8 @@ export default {
             // 提示位置：默认右侧，bottom表示提示位置在输入框底部
             if (item.tipsType === "bottom") {
                 ele.push(<p class="title-tips item-tips-bottom">{item.tips}</p>)
-            } else {
+            } 
+            else {
                 ele.push(<label class="title-tips">{item.tips}</label>)
             }
             return (

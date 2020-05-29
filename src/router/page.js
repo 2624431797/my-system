@@ -14,6 +14,11 @@ export default {
             path: '/usertable', 
             component: () => import("@/views/nav2/Table"), 
             name: '审批列表' 
+        },
+        {
+            path: '/upload',
+            component: () => import("@/views/nav2/Upload"),
+            name: '文件上传'
         }
     ]
 }
