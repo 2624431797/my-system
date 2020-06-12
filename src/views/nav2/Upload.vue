@@ -1,7 +1,11 @@
 <template>
     <section class="uploadbox">
         <div class="upload-container">
-            <UpLoad />
+            <UpLoad 
+                :active-name="activeName" 
+                :tab-map-options="tabMapOptions" 
+                :file-data="fileData"
+            />
         </div>
     </section>
 </template>

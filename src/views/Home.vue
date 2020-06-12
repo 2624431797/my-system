@@ -87,8 +87,8 @@ import TagsView from "@/components/Home/TagsView"
 export default {
 	data() {
 		return {
-			sysName:'Vue Admin',
-			collapsed:false,
+			sysName: 'Vue Admin',
+			collapsed: true,
 			sysUserName: '',
 			sysUserAvatar: '',
 			form: {
@@ -142,9 +142,10 @@ export default {
 	@import '~scss_vars';
 	.container {
 		position: absolute;
+		width: 100%;
+		height: 100%;
 		top: 0px;
 		bottom: 0px;
-		width: 100%;
 		.header {
 			position: relative;
 			height: 60px;
@@ -223,10 +224,11 @@ export default {
 			position: absolute;
 			top: 60px;
 			bottom: 0px;
-			overflow: hidden;
+			overflow-x: hidden;
 			.aside {
 				width: 200px;
-				flex:0 0 200px;
+				height: 100%;
+				flex: 0 0 200px;
 				transition: all .5s ease-out;
 				.el-menu{
 					height: 100%;
@@ -234,6 +236,9 @@ export default {
 					background-color: #484f56;
 					i{
 						color: #fff;
+					}
+					.fa-home{
+						font-size: 18px;
 					}
 					.el-icon-platform-eleme{
 						margin-left: -4px;
@@ -305,8 +310,6 @@ export default {
 			}
 			.content-container {
 				flex:1;
-				padding: 10px;
-				overflow-y: scroll;
 				z-index: 99;
 				background: #fff;
 				.tagsviewbox{

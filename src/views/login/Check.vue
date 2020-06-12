@@ -229,7 +229,7 @@
                             this.containerSuccess = true;
                             this.$emit('success')
                             setTimeout(() => {
-                                this.$router.push("/main")      //成功后跳转主页
+                                this.$router.push("/Dashboard")      //成功后跳转主页
                             }, 800);
                         } else {
                             this.containerFail = true;

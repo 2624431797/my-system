@@ -19,6 +19,11 @@ export default {
             path: '/upload',
             component: () => import("@/views/nav2/Upload"),
             name: '文件上传'
+        },
+        {
+            path: '/import',
+            component: () => import("@/views/nav2/Import"),
+            name: "文件导入"
         }
     ]
 }

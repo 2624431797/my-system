@@ -5,6 +5,7 @@ Vue.use(VueRouter)
 import Login from "./login"
 import NotFound from "./notFound"
 import Home from "./home"
+import Main from "./main"
 import Page from "./page"
 import Echart from "./echart"
 import AMap from "./map"
@@ -22,6 +23,7 @@ export default new VueRouter({
         },
         Login,
         NotFound,
+        Main,
         Home,
         Page,
         Echart,

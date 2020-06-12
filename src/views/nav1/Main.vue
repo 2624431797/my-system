@@ -63,13 +63,12 @@ export default {
     color: #fff;
     border-radius: 5px;
     background-image: url('../../components/datav/img/bg.png');
-
-  #dv-full-screen-container {
-    background-size: 100% 100%;
-    box-shadow: 0 0 3px blue;
-    display: flex;
-    flex-direction: column;
-  }
+    #dv-full-screen-container {
+        background-size: 100% 100%;
+        box-shadow: 0 0 3px blue;
+        display: flex;
+        flex-direction: column;
+    }
 
   .main-header {
     height: 80px;
